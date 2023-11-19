@@ -18,10 +18,10 @@ export const sendEmailVerify = async ({ name, email, token }) => {
   `;
 
   const info = await transporter.sendMail({
-    from: '"AppSalon" <no-reply@appsalon.com>', // Remitente con un nombre descriptivo y una dirección de correo ficticia
+    from: '"AppSalon" <no-reply@appsalon.com>',
     to: email,
     subject: "Confirma tu cuenta en AppSalon",
-    text: `Hola ${name}, confirma tu cuenta en AppSalon visitando este enlace: http://localhost:4000/api/verify/${token}`, // Versión de texto para clientes de correo que no admiten HTML
+    text: `Hola ${name}, confirma tu cuenta en AppSalon visitando este enlace: http://localhost:4000/api/verify/${token}`,
     html: emailTemplate, // Utiliza la variable de la plantilla HTML
   });
 
