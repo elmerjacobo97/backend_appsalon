@@ -2,10 +2,10 @@ import { createTransporter } from "../config/nodemailer.js";
 
 export const sendEmailVerify = async ({ name, email, token }) => {
   const transporter = createTransporter(
-    "sandbox.smtp.mailtrap.io",
-    2525,
-    "77745168e232c6",
-    "ca1f1bef933be6",
+    process.env.SMTP_HOST,
+    process.env.SMTP_PORT,
+    process.env.SMTP_USER,
+    process.env.SMTP_PASS,
   );
 
   const emailTemplate = `
