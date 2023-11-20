@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import { sendEmailVerify } from "../emails/authEmailService.js";
+import { generateJWT } from "../utils/index.js";
 
 const register = async (req, res) => {
   const { email, password } = req.body;
@@ -122,10 +123,14 @@ const login = async (req, res) => {
       });
     }
 
+    // Generar el JWT
+    const token = await generateJWT(user._id);
+
     res.json({
       msg: "Inicio de sesión exitoso",
       name: user.name,
       email: user.email,
+      token,
     });
   } catch (error) {
     console.log("Error al iniciar sesión", error);
@@ -135,4 +140,11 @@ const login = async (req, res) => {
   }
 };
 
-export { register, verifyAccount, login };
+const user = async (req, res) => {
+  // Extraer el user del authMiddleware
+  const { user } = req;
+
+  res.json(user);
+};
+
+export { register, verifyAccount, login, user };
